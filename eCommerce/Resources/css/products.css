@@ -1,0 +1,123 @@
+﻿
+
+ background-color: #61c0ec; */
+  border-color: red;
+    border-style: solid;
+  position: relative; }
+  .featured-place-wrap:hover {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
+    -webkit-box-shadow: 0px 3px 40px 0 rgba(206, 205, 205, 0.3);
+    box-shadow: 0px 3px 40px 0 rgba(206, 205, 205, 0.3); }
+  .featured-place-wrap a {
+    display: block;
+    text-decoration: none;
+    color: #000; }
+  .featured-place-wrap img {
+    width: 100%; }
+
+.featured-rating,
+.featured-rating-orange,
+.featured-rating-green, .featured-rating-red {
+  /*position: absolute;
+  right: 10px;*/
+  width: 60px;
+  height: 60px;
+  text-align: center;
+   /* margin:   64% 10px 0 0;/*-33px 10px 0 0;*/
+     position: relative;
+   left: 75%;
+    
+  font-size: 23px;
+  background: #ff7474;
+  color: #fff;
+  padding: 14px;
+  border-radius: 50%; }
+
+.featured-rating-orange {
+  background: #ffae00 !important; }
+
+.featured-rating-green {
+  background: #46cd38 !important; }
+
+ /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+ #CategoryContainer {
+   margin-right: -18px;
+    margin-left: -20px;
+}
+
+    .featured-responsive {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+   .vipContainer {
+    margin-right: -25px !important;
+    margin-left: -20px !important;
+}
+
+
+    #coverContainer {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    width: 100%;
+    max-width: 100%;
+}
+    .btn-container {
+    margin-right: -15px;
+    margin-left: -15px;
+}.main-block {
+    padding: 15px 15px;
+}
+
+ .featured-rating, .featured-rating-orange, .featured-rating-green, .featured-rating-red {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    position: relative;
+    left: 80% !important;
+}
+}
+      
+h3{
+    color:#ffae00 !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+   height: 250px !important;
+ 
+    border-bottom: none;
+}
+.cart{
+    float: right;
+    margin: -60px;
+  
+}
+#MyOrders{
+     color: #ffae00 !important
+}
+
+.close {
+    color: rgb(255, 174, 0) !important;
+}
+
+/*.modal-content {background-color: #433d3d;
+}
+ 
+.modal-open .modal { color: rgb(255, 174, 0) !important;
+   
+}*/ 
+.FoodInfo{
+    border-bottom: solid;
+    border-width: thin;width: 100%;
+
+}
+.DescriptionInfo{
+      padding: 10px;
+
+}
+.FoodInfoTitle{
+    font-weight: 600;
+}

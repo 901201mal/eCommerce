@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="Resources/css/bootstrap.min.css" rel="stylesheet" />
+  
+    <script src="Resources/script/jquery-1.11.2.min.js"></script>
+    <script src="Resources/script/bootstrap.min.js"></script>
+    <link href="Resources/css/jqx.base.css" rel="stylesheet" />
+    <script src="Resources/script/jqx-all.js"></script>
+    <script src="Resources/script/jqxcore.js"></script>
+
+    <link href="Resources/css/products.css" rel="stylesheet" />
+    <link href="Resources/css/style.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#MyOrders").click(function () {
+                $("#OrderModal").modal("toggle");
+            });
+
+
+        });
+    </script>
+
+    <title>Bookstore</title>
+</head>
+<body>
+    <div class="box">
+        <div class="row header">
+            <div id="HeaderContainer">
+                <div class="header_resize">
+                    <div class="logo">
+                        <img src="Resources/images/logo.jpg" style="height:140px; width:195px; padding-top:10px; position:absolute; left:5%;" />
+                    </div>
+                    <div class="menu_nav" style="float: right;    right: 5%;    position: absolute;">
+                        <ul>
+                            <li class="active"><a href="index.html">Shop <small>Shop</small></a></li>
+                            <li><a href="support.html">Discounts <small>Campaigns</small></a></li>
+
+                            <li><a href="blog.html">About us <small>About us</small></a></li>
+                            <li><a href="about.html">Contact Us <small>Customer service</small></a></li>
+                            <li><div class="cart" style="margin: inherit;"><a id="MyOrders"><img src="Resources/images/shopping-cart.png" style="height: 30px;" /><small>Quantity <i id="Quantity"> 0 </i></small>  </a></div></li>
+
+
+                        </ul>
+                    </div>
+                    <div class="clr">
+                        <div class="modal fade" id="OrderModal" role="dialog">
+                            <div class="modal-dialog">
+
+
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Beställningar</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="OrderContainer" style="margin-left: 1%;" class="row">
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <div class="col-lg-5">
+                                            <p id="TotalPrice"></p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="checkout()">Check out</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            1
+        </div>
+        <div class="row content"  >
+
+
+
+            <div style="padding-top:20px; margin-right: 10%;    margin-left: 5%;">
+
+                <div  id="foodcontainer">
+
+                    <div class="col-md-3 featured-responsive foodcont">
+                    <div class="featured-place-wrap ">
+                            <img src="Resources/images/Halloumi.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-orange">6.5</span>
+                            <div class="featured-title-box">
+                                <h6>Umami Halloumi</h6>
+                                <div class="row FoodInfo">
+                                    <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                                    <div class="col-lg-2 ">2 Kr </div>
+
+                                </div>
+                                <button type="button" class="btn btn-primary">Order</button>
+                                
+                                
+                        </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                    <div class="featured-place-wrap ">
+                        <img src="Resources/images/ChilinCheese.jpg" class="img-fluid" alt="#">
+                        <span class="featured-rating-orange">6.5</span>
+                        <div class="featured-title-box">
+                        <h6>Chili n Cheese</h6>
+                        <div class="row FoodInfo">
+                            <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                            <div class="col-lg-2 ">5 Kr </div>
+                        </div>
+
+                            <button type="button"  class="btn btn-primary">Order</button>
+                        </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                    <div class="featured-place-wrap ">
+                        <img src="Resources/images/Chickenwings.jpg" class="img-fluid" alt="#">
+                        <span class="featured-rating-orange">6.5</span>
+                        <div class="featured-title-box"><h6>Chicken wings</h6>
+                        <div class="row FoodInfo">
+                            <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                            <div class="col-lg-2 ">3 Kr </div>
+                        </div>
+
+                            <button type="button"  class="btn btn-primary">Order</button>
+                        </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                    <div class="featured-place-wrap ">
+                        <img src="Resources/images/chickennuggets.jpg" class="img-fluid" alt="#">
+                        <span class="featured-rating-orange">6.5</span>
+                        <div class="featured-title-box">
+                        <h6>Kyckling nuggets</h6>
+                        <div class="row FoodInfo">
+                            <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                            <div class="col-lg-2 ">4 Kr </div>
+                            </div>
+
+                            <button type="button"  class="btn btn-primary">Order</button>
+                        </div>
+                         </div>
+                    </div> 
+                    <div class="col-md-3 featured-responsive foodcont">
+                        <div class="featured-place-wrap ">
+                            <img src="Resources/images/Halloumi.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-orange">6.5</span>
+                            <div class="featured-title-box">
+                                <h6>Umami Halloumi</h6>
+                                <div class="row FoodInfo">
+                                    <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                                    <div class="col-lg-2 ">2 Kr </div>
+
+                                </div>
+                                <button type="button" class="btn btn-primary">Order</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                        <div class="featured-place-wrap ">
+                            <img src="Resources/images/ChilinCheese.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-orange">6.5</span>
+                            <div class="featured-title-box">
+                                <h6>Chili n Cheese</h6>
+                                <div class="row FoodInfo">
+                                    <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                                    <div class="col-lg-2 ">5 Kr </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary">Order</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                        <div class="featured-place-wrap ">
+                            <img src="Resources/images/Chickenwings.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-orange">6.5</span>
+                            <div class="featured-title-box">
+                                <h6>Chicken wings</h6>
+                                <div class="row FoodInfo">
+                                    <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                                    <div class="col-lg-2 ">3 Kr </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary">Order</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 featured-responsive foodcont">
+                        <div class="featured-place-wrap ">
+                            <img src="Resources/images/chickennuggets.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-orange">6.5</span>
+                            <div class="featured-title-box">
+                                <h6>Kyckling nuggets</h6>
+                                <div class="row FoodInfo">
+                                    <div class="col-lg-9 FoodInfoTitle">Pris</div>
+                                    <div class="col-lg-2 ">4 Kr </div>
+                                </div>
+                                <div id='jqxRating'></div>
+                                <div style='margin-top:10px;'>
+                                    <div style='float: left;'>Rating:</div> <div style='float: left;' id='rate'></div>
+                                </div>
+                                <button type="button" class="btn btn-primary">Order</button>
+                            </div>
+                        </div>
+                    </div> 
+                      
+                </div>
+
+            </div>
+            <div id="second" class="container">
+
+
+
+            </div>
+
+        </div>
+        <div class="row footer"  >
+            3
+            <!--<div class="col-lg-12" style="border-style:dashed; height 50px; bottom 0; position absolute;">
+                <div class="footerContainer">
+
+                </div>-->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Create jqxRating
+            $("#jqxRating").jqxRating({ width: 350, height: 35, theme: 'classic' });
+            $("#jqxRating").on('change', function (event) {
+                $("#rate").find('span').remove();
+                $("#rate").append('<span>' + event.value + '</span');
+            });
+        });
+        function Order(t) {
+
+            for (var i = 0; i < menu.length; i++)
+                if (menu[i].Id == t.id) {// alert(menu[i].Price + ' Meal name: ' + menu[i].Name);
+                    var order = {};
+                    order = { Id: t.id, Quantity: 1, Name: menu[i].Name, Price: menu[i].Price };
+
+
+                    orders.push(order);
+                }
+
+
+
+            sumQuantity();
+            //sumTotal();
+        }
+        function DeleteLine(t) {
+            for (var k = 0; k < orders.length; k++)
+                if (orders[k].Id + k == t.id)
+                    orders.splice(k, 1);
+            sumQuantity();
+
+        }
+
+
+        function sumQuantity() {
+            var sumQuantity = 0;
+            var sumPrice = 0;
+            $('#OrderContainer, #TotalPrice').empty();
+            for (var i = 0; i < orders.length; i++) {
+                var element = '';
+                sumQuantity = sumQuantity + Number(orders[i].Quantity);
+                sumPrice = sumPrice + Number(orders[i].Price);
+                element += '<div class="col-lg-9" style="padding-bottom: 15px;">' + orders[i].Name + '</div>';
+                element += '<div class="col-lg-2">' + orders[i].Price + ' :-</div>';
+                element += '<div class="col-xs-1"><a onClick="DeleteLine(this)" id="' + orders[i].Id + i + '"   class="close">&times;</a></div>';
+                $('#OrderContainer').append(element);
+            }
+            $('#TotalPrice')[0].innerText = 'Totalt: ' + sumPrice + ':-';
+            $('#Quantity')[0].innerText = sumQuantity;
+        }
+    </script>
+    <!--</div>
+    </div>-->
+    <!-- <script>
+
+
+        <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+        <script>
+        var uri = '/api/Book/';
+
+        $(document).ready(function () {
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        });
+
+
+
+        function showPosition(position) {
+            var position ={latitude:position.coords.latitude,longitude: position.coords.longitude};
+
+
+        }
+
+        function RegisterInfo(position)
+        {
+
+            $.ajax({
+                url: uri + Keyword+";"+condition,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var BooksList = JSON.parse(data);
+                    var TableElement = '';
+                    for (var i = 0; i < BooksList.length; i++)
+                    {
+                        TableElement += '<div class="col-lg-1">' + BooksList[i].Author + '</div>';
+                        TableElement += '<div class="col-lg-1">' + BooksList[i].Title + '</div>';
+                        TableElement += '<div class="col-lg-1">' + BooksList[i].Genre + '</div>';
+                        TableElement += '<div class="col-lg-1">' + BooksList[i].Price + '</div>';
+                        TableElement += '<div class="col-lg-1">' + BooksList[i].PublishDate + '</div>';
+                        TableElement += '<div class="col-lg-7" style="height:40px">' + BooksList[i].Description + '</div>';
+                    }
+
+                    $('#DataContainer').empty();
+                    $('#DataContainer').append(TableElement);
+
+
+                },
+                error: function (xhr, error) {
+                    var s = "";
+            },
+            });
+
+        }
+
+
+        //});
+
+
+
+        </script>-->
+</body>
+</html>
