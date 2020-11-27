@@ -17,9 +17,7 @@
   .featured-place-wrap img {
     width: 100%; }
 
-.featured-rating,
-.featured-rating-orange,
-.featured-rating-green, .featured-rating-red {
+.featured-rating, .featured-rating-white, .featured-rating-red {
   /*position: absolute;
   right: 10px;*/
   width: 60px;
@@ -35,11 +33,12 @@
   padding: 14px;
   border-radius: 50%; }
 
-.featured-rating-orange {
-  background: #ffae00 !important; }
-
+.featured-rating-white {
+  background: transparent !important; 
+  color: transparent !important; }
+/*
 .featured-rating-green {
-  background: #46cd38 !important; }
+  background: #46cd38 !important; }*/
 
  /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -71,12 +70,13 @@
     padding: 15px 15px;
 }
 
- .featured-rating, .featured-rating-orange, .featured-rating-green, .featured-rating-red {
+ .featured-rating,  .featured-rating-white, .featured-rating-red {
     width: 60px;
     height: 60px;
     text-align: center;
     position: relative;
-    left: 80% !important;
+left: 79% !important;
+    top: -40px;
 }
 }
       
@@ -95,13 +95,7 @@ h3{
     margin: -60px;
   
 }
-#MyOrders{
-     color: #ffae00 !important
-}
 
-.close {
-    color: rgb(255, 174, 0) !important;
-}
 
 /*.modal-content {background-color: #433d3d;
 }
@@ -109,7 +103,7 @@ h3{
 .modal-open .modal { color: rgb(255, 174, 0) !important;
    
 }*/ 
-.FoodInfo{
+.ProductInfo{
     border-bottom: solid;
     border-width: thin;width: 100%;
 
@@ -118,6 +112,55 @@ h3{
       padding: 10px;
 
 }
-.FoodInfoTitle{
+.ProductInfoTitle{
     font-weight: 600;
 }
+
+.ColorContainer .GenderContainer{
+    font-weight:600;
+        color: black;
+        text-align: center;
+}
+
+.GenderContainer {
+
+    max-width: 200px;
+}
+#ordPrice
+{
+    color:red;
+}
+.Filterbtn{
+background-color: rgb(239, 239, 239); 
+border: 0px;
+height: 30px; 
+width: 60px;
+color: black;
+text-align: center;
+font-weight: 700;
+} 
+.active { 
+    border: 1px !important; 
+  text-decoration: none;
+}
+ 
+.spacer {
+  clear: both;
+  height: 20px;
+}
+ .orderrow
+ {
+     height: 30px !important;
+
+ }
+ .RateBtn{    
+     color: #fff;
+    background:url('/Resources/Images/Rate_icon.png');
+    border-color: #28a745 ;
+    height:32px;
+    width:32px; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    outline: none;
+ }

@@ -11,10 +11,8 @@
 
     <link href="Resources/css/style.css" rel="stylesheet" />
     <link href="Resources/css/shop.css" rel="stylesheet" />
-    <script src="Resources/script/Index.js"></script> 
+    <script src="Resources/script/Contact.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-
-
     <title>eShoe Store</title>
 </head>
 <body>
@@ -27,12 +25,11 @@
                     </div>
                     <div class="menu_nav" style="float: right;    right: 5%;    position: absolute;">
                         <ul>
-                            <li class="active"><a href="index.html">Shop <small>Shop</small></a></li>
+                            <li><a href="index.html">Shop <small>Shop</small></a></li>
                             <li><a href="Discount.html">Discounts <small>Campaigns</small></a></li>
+
                             <li><a href="About.html">About us <small>About us</small></a></li>
-                            <li><a href="contact.html">Contact Us <small>Customer service</small></a></li>
-                            <li class="adminSites"><a href="ad_products.html">Products <small>Maintain Products </small></a></li>
-                            <li class="adminSites"><a href="ad_users.html">User<small>Maintain Users </small></a></li>
+                            <li class="active"><a href="contact.html">Contact Us <small>Customer service</small></a></li>
                             <li><div class="cart" style="margin: inherit;"><a id="MyOrders">
                                 <img src="Resources/images/shopping-cart.png" style="height: 30px;" /><small>Quantity <i id="Quantity"> 0 </i></small>  </a></div></li><li>
                             <li>
@@ -98,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal fade" id="LogoutModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -108,7 +104,7 @@
                                     </div>
 
                                     <div class="modal-body" style="height: 100px;">
-                                    
+
                                         <div class="col-lg-12">
                                             <button type="button" style="height: 60px;width: 155px;" class="btn btn-danger" data-dismiss="modal" onclick="Logout()">Log out</button>
                                         </div>
@@ -230,29 +226,51 @@
 
 
 
-        <div class="row content">
+        <div class="row">
 
     
-            <div class="col-lg-4"> </div>
-                <div class="GenderContainer col-lg-2">
+            <div class="col-lg-3"> </div>
+              
 
-                </div>
-                <div class="ColorContainer col-lg-6">
+                <div  class="col-lg-4" style="padding-top:20px; margin-right: 10%;    margin-left: 5%;">
+                    <h1> Please send us your inquiry!</h1>
+                    <div class="form-group">
+                        <h2>
 
-                </div> 
+                            Full Name</h2>
 
-                <div class="spacer">
-
-                </div>
-
-
-
-                <div style="padding-top:20px; margin-right: 10%;    margin-left: 5%;">
-                    <div id="ProductsContainer">
-                        <div id="parent"> 
-                        </div>
+                            <input type="text" class="form-control" id="InquiryName">
+                        </p>
                     </div>
-                </div>
+                  
+                    <div class="form-group">
+                        <h2>
+
+                            E-post</h2>
+
+                            <input type="text" class="form-control" id="InquiryEpost">
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <h2>
+                            Comment
+                        </h2>
+
+                            <textarea class="form-control"  rows="5" cols="60" name="description" id="InquiryComment">
+                                Enter details here...
+                            </textarea><br>
+                       
+                    </div>
+                        <div class="col-lg-2"></div>
+
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="RegisterUser()">Register</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+
+
                 <div id="second" class="container">
 
 

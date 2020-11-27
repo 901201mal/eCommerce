@@ -111,28 +111,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ad_users.html" />
+    <Content Include="ad_products.html" />
+    <Content Include="Discount.html" />
+    <Content Include="about.html" />
+    <Content Include="contact.html" />
     <Content Include="Index.html" />
-    <Content Include="BooksHTML.html" />
     <Content Include="Global.asax" />
-    <Content Include="Resources\books.xml" />
     <Content Include="Resources\css\bootstrap.min.css" />
     <Content Include="Resources\css\jqx.base.css" />
-    <Content Include="Resources\css\products.css" />
-    <Content Include="Resources\Images\burger.png" />
-    <Content Include="Resources\Images\ChickenNuggets.jpg" />
-    <Content Include="Resources\Images\chickenwings.jpg" />
-    <Content Include="Resources\Images\ChilinCheese.jpg" />
-    <Content Include="Resources\Images\Fiskburgare.jpg" />
-    <Content Include="Resources\Images\Halloumi.jpg" />
+    <Content Include="Resources\css\shop.css" />
+    <Content Include="Resources\Images\delete.png" />
+    <Content Include="Resources\Images\icon_login.png" />
+    <Content Include="Resources\Images\Rate_icon.png" />
+    <Content Include="Resources\Images\Shoes\men\Black-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\men\Black-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\men\Grey-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\men\Grey-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\men\Red-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\men\Red-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\men\White-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\men\White-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Black-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Black-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Grey-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Grey-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Red-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\women\Red-Shoe2.jpg" />
+    <Content Include="Resources\Images\Shoes\women\White-Shoe1.jpg" />
+    <Content Include="Resources\Images\Shoes\women\White-Shoe2.jpg" />
     <Content Include="Resources\Images\shopping-cart.png" />
     <Content Include="Resources\Images\star.png" />
     <Content Include="Resources\Images\star_disabled.png" />
     <Content Include="Resources\Images\star_hover.png" />
     <Content Include="Resources\Images\tap.png" />
+    <Content Include="Resources\script\Contact.js" />
+    <Content Include="Resources\script\Contact_old.js" />
+    <Content Include="Resources\script\ad_users.js" />
     <Content Include="Resources\script\arial.js" />
     <Content Include="Resources\script\bootstrap.min.js" />
     <Content Include="Resources\script\cufon-yui.js" />
     <Content Include="Resources\script\cuf_run.js" />
+    <Content Include="Resources\script\Discount.js" />
+    <Content Include="Resources\script\ad_products.js" />
+    <Content Include="Resources\script\About.js" />
+    <Content Include="Resources\script\Index.js" />
     <Content Include="Resources\script\jquery-1.11.2.min.js" />
     <Content Include="Resources\Images\logo.jpg" />
     <Content Include="Resources\css\style.css" />
@@ -142,11 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Empty.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\OrderRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,8 @@ html, .main {
 	width:100%;
 	font-size:0;
 	line-height:0;
+    
+    color: black;
 }
 .logo {
 	padding:0 0 0 40px;
@@ -358,7 +360,7 @@ body {
 
 .box .row.content {
   flex: 1 1 auto;
-  overflow: auto;
+  /*overflow: auto;*/
       padding-left: 5%;
     padding-top: 5%;
 }
@@ -371,4 +373,19 @@ body {
         margin-left: 38%;
     margin-top: 10px;
     margin-bottom: 11px;
+    width: 100px;
+}
+
+h6{
+    font-size: large;
+    color: black;
+}
+#OrderContainer{
+    font-size:small;
+}
+.closeContainer{
+        margin-top: -10px
+}
+#deleteimg < span {
+    left:30%;
 }

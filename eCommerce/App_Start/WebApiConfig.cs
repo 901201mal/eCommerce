@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace SigmaReader
+namespace eCommerce
 {
     public static class WebApiConfig
     {
@@ -14,23 +14,29 @@ namespace SigmaReader
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
-       //     config.Routes.MapHttpRoute(
-       // name: "ApiWithAction",
-       // routeTemplate: "api/{controller}/{action}/{id}",
-       // defaults: new { id = RouteParameter.Optional }
-       //);
-          
+            config.Routes.MapHttpRoute(
+                 name: "OneValueRoute",
 
-        config.Routes.MapHttpRoute(
-            name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}",
-            defaults: new { id = RouteParameter.Optional }
-        );
+                routeTemplate: "API/{controller}/{action}/{id}",
+
+                defaults: new { id = RouteParameter.Optional }
+                    );
+
+            config.Routes.MapHttpRoute(
+                name: "GetRoute",
+
+               routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+
+                   );
+
+
+            config.Routes.MapHttpRoute(
+                 name: "DefaultApi",
+                routeTemplate: "API/{controller}/{action}",
+                defaults: new { id = RouteParameter.Optional }
+                    );
+
 
         }
     }
