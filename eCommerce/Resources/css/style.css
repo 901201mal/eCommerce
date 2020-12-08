@@ -80,19 +80,13 @@ a.rm, a.com {
     width:auto;
 	max-width:975px;
 }
-.header {
-}
+
 .header_resize {
 	margin:10px auto;
 	padding:0;
 	width:970px;
 }
-.hbg {
-}
-.hbg img {
-	padding:0px;
-	border:1px solid #d9dcdd;
-}
+
 .menu_nav {
 	margin:0;
 	padding:25px 40px 16px 0;
@@ -234,49 +228,6 @@ ul.ex_menu li a:hover {
 	padding:0;
 	float:left;
 }
-.fbg {
-	background-color:#61c0ec;
-}
-.fbg_resize {
-	padding:24px 40px;
-	color:#fff;
-}
-.fbg a {
-	color:#fff;
-}
-.fbg h2 {
-	color:#fff;
-}
-.fbg img {
-	padding:4px;
-	border:1px solid #cfd2d4;
-	background-color:#fff;
-}
-.fbg .col {
-	margin:0;
-	float:left;
-}
-.fbg .c1 {
-	padding:0 16px 0 0;
-	width:266px;
-}
-.fbg .c2 {
-	padding:0 16px;
-	width:300px;
-}
-.fbg .c3 {
-	padding:0 0 0 16px;
-	width:260px;
-}
-.fbg .c1 img {
-	margin:8px;
-}
-.fbg .c3 img {
-	margin:8px 16px 4px 0;
-	float:left;
-}
-.footer {
-}
 .footer_resize {
 	margin:0 auto;
 	padding:24px 40px;
@@ -350,7 +301,7 @@ body {
 
 .box .row.header {
   flex: 0 1 auto;
-  height:160px;
+  
   /* The above is shorthand for:
   flex-grow: 0,
   flex-shrink: 1,

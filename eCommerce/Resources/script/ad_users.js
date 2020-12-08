@@ -8,10 +8,6 @@ var OrderIdentity ;
 var Customer = { CustomerIdentity: null };
 
 $(document).ready(function () {
-    ////Create Shopping cart modal
-    //        $("#MyOrders").click(function () {
-    //            $("#OrderModal").modal("toggle");
-    //        });
 
     // Read the cookie
             var UserCookie = Cookies.get('Customer');
@@ -19,18 +15,7 @@ $(document).ready(function () {
                var  UserData = JSON.parse(UserCookie);
                 SetUser(UserData);
             }
-
-    //        $("#myLogin").click(function () {
-    //            if (Customer.CustomerIdentity == null)
-    //                $("#LoginModal").modal("toggle");
-    //        });
-
-    //            //Load Users into the page
-    //
             ConnecToDatebase('GetUsers', {});
-
-    
-           
 });
 
 function SetUser(UserData) {
@@ -54,25 +39,15 @@ function GetUser(ds) {
                 { name: 'Billingaddress', type: 'string'}
             ],
             datatype: "array", 
-            addrow: function (rowid, rowdata, position, commit) {
-                // synchronize with the server - send insert command
-                // call commit with parameter true if the synchronization with the server was successful. 
-                // and with parameter false if the synchronization has failed.
-                // you can pass additional argument to the commit callback which represents the new ID if it is generated from a Database. Example: commit(true, idInDB) where "idInDB" is the row's ID in the Database.
-                if (rowdata.UserName.length > 0) {
-
-                    ConnecToDatebase('AddUser', rowdata);
-                    commit(true);
-                                 
-                }
-                else
-                    return false;
-            },
+            //addrow: function (rowid, rowdata, position, commit) {
+            //   if (rowdata.UserName.length > 0) {
+            //        ConnecToDatebase('AddUser', rowdata);
+            //        commit(true);            
+            //    }
+            //    else
+            //        return false;
+            //},
             updaterow: function (rowid, rowdata, commit) {
-                // synchronize with the server - send update command
-                // call commit with parameter true if the synchronization with the server was successful 
-                // and with parameter false if the synchronization has failed.
-                          
                 if (rowdata.UserIdentity.length > 0) { 
                     ConnecToDatebase('UpdateUser', rowdata);
                     commit(true); 
@@ -81,10 +56,6 @@ function GetUser(ds) {
                     return false;
             },
             deleterow: function (rowid, rowdata, commit) {
-                // synchronize with the server - send delete command
-                // call commit with parameter true if the synchronization with the server was successful 
-                // and with parameter false if the synchronization has failed.
-                        
                 if (rowdata.UserIdentity.length > 0) {
                     ConnecToDatebase('DeleteUser', rowdata);
                     commit(true);
@@ -104,7 +75,7 @@ function GetUser(ds) {
         filterable: true, 
         showeverpresentrow: true,
         everpresentrowposition: "top",
-        everpresentrowactions: "add update remove reset",
+        everpresentrowactions: "update remove reset",
         editable: false,
         columns: [
           { text: 'ID', datafield: 'UserIdentity', width: '5%' },
@@ -141,14 +112,18 @@ function ConnecToDatebase(method, obj) {
         data: JSON.stringify(obj),
         success: function (response) {
             if (response != undefined) {
-                if (method == 'GetUsers')
-                    GetUser(response);
-                else if (method == 'GetLogin') {
-                    SetUser(response[0]);
-                    // Set a cookie
-                    Cookies.set('Customer', JSON.stringify(response[0]));
+                if (response[0].ErrorStatus == 0) {
+                    if (method == 'GetUsers')
+                        GetUser(response);
+                    else if (method == 'GetLogin') {
+                        SetUser(response[0]);
+                        // Set a cookie
+                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    }
                 }
-
+                else {
+                    alert('Error occured \n ErrorCode: ' + response[0].ErrorCode + ' \n Description: ' + response[0].Message);
+                }
             }
         },
         error: function (xhr, error) {

@@ -1,9 +1,5 @@
 ﻿
-
- background-color: #61c0ec; */
-  border-color: red;
-    border-style: solid;
-  position: relative; }
+  
   .featured-place-wrap:hover {
     -webkit-transform: translateY(-2px);
     -ms-transform: translateY(-2px);

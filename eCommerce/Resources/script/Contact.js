@@ -90,19 +90,22 @@ function ConnecToDatebase(method, obj) {
         data: JSON.stringify(obj),
         success: function (response) {
             if (response != undefined) {
-               
-                if (method == 'GetLogin') {
-                    SetUser(response[0]);
-                    // Set a cookie
-                    Cookies.set('Customer', JSON.stringify(response[0]));
-                }
-                else if (method == 'SetLogin') {
-                    SetUser(response[0]);
+                if (response[0].ErrorStatus == 0) {
+                    if (method == 'GetLogin') {
+                        SetUser(response[0]);
+                        // Set a cookie
+                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    }
+                    else if (method == 'SetLogin') {
+                        SetUser(response[0]);
 
-                    // Set a cookie
-                    Cookies.set('Customer', JSON.stringify(response[0]));
+                        // Set a cookie
+                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    }
                 }
-          
+                else {
+                    alert('Error occured \n ErrorCode: ' + response[0].ErrorCode + ' \n Description: ' + response[0].Message);
+                }
             }
         },
         error: function (xhr, error) {

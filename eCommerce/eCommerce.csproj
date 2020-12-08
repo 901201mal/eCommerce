@@ -146,12 +146,8 @@
     <Content Include="Resources\Images\star_hover.png" />
     <Content Include="Resources\Images\tap.png" />
     <Content Include="Resources\script\Contact.js" />
-    <Content Include="Resources\script\Contact_old.js" />
     <Content Include="Resources\script\ad_users.js" />
-    <Content Include="Resources\script\arial.js" />
     <Content Include="Resources\script\bootstrap.min.js" />
-    <Content Include="Resources\script\cufon-yui.js" />
-    <Content Include="Resources\script\cuf_run.js" />
     <Content Include="Resources\script\Discount.js" />
     <Content Include="Resources\script\ad_products.js" />
     <Content Include="Resources\script\About.js" />
@@ -181,6 +177,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\css\bootstrap.min.css.map" />
+    <None Include="Properties\PublishProfiles\Datastore.se.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

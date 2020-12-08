@@ -213,31 +213,33 @@ function ConnecToDatebase(method, obj) {
         data: JSON.stringify(obj),
         success: function (response) {
             if (response != undefined) {
-                if (method == 'GetDiscountedProducts')
-                    GetProduct(response);
-                else if (method == 'GetOrders'){
-                    PopulateOrders(response);
+                if (response[0].ErrorStatus == 0) {
+                    if (method == 'GetDiscountedProducts')
+                        GetProduct(response);
+                    else if (method == 'GetOrders') {
+                        PopulateOrders(response);
                     }
-                else if (method == 'CreateOrder'){
-                    OrderIdentity = response[0].OrderIdentity;
+                    else if (method == 'SetOrder') {
+                        OrderIdentity = response[0].OrderIdentity;
+                    }
+                    else if (method == 'UpdateOrder') {
+                        //DoSomething// var s = '';
+                    }
+                    else if (method == 'GetLogin') {
+                        SetUser(response[0]);
+                        if (response[0].TypeIdentity != 1)
+                            ConnecToDatebase('GetOrders', { CustomerIdentity: response[0].CustomerIdentity });
+                        // Set a cookie
+                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    }
+                    else if (method == 'SetLogin') {
+                        SetUser(response[0]);
+                        // Set a cookie
+                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    }
                 }
-                else if (method == 'UpdateOrder') {
-                   //DoSomething// var s = '';
-                }
-                else if (method == 'GetLogin') {
-                    SetUser(response[0]);
-                    if (response[0].TypeIdentity != 1)
-                        ConnecToDatebase('GetOrders', { CustomerIdentity: response[0].CustomerIdentity });
-                    // Set a cookie
-                    Cookies.set('Customer', JSON.stringify(response[0]));
-                }
-                else if (method == 'SetLogin') {
-                    SetUser(response[0]);
-                    // Set a cookie
-                    Cookies.set('Customer', JSON.stringify(response[0]));
-                }
-                else if (method == 'SetRating') {
-                    alert('Product has been rated!');
+                else {
+                    alert('Error occured \n ErrorCode: ' + response[0].ErrorCode + ' \n Description: ' + response[0].Message);
                 }
             }
         },
@@ -338,7 +340,7 @@ function sumOrders() {
     $('#Quantity')[0].innerText = sumQuantity;
 
     if (OrderIdentity == null)
-        ConnecToDatebase('CreateOrder', orderrows[0]);
+        ConnecToDatebase('SetOrder', orderrows[0]);
     else 
         ConnecToDatebase('UpdateOrder', orderrows);
 
