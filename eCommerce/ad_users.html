@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="box">
-        <div class="row header">
+        <div class="row header" style="height:160px;">
             <div id="HeaderContainer">
                 <div class="header_resize">
                     <div class="logo">
@@ -30,13 +30,19 @@
 
                             <li><a href="About.html">About us <small>About us</small></a></li>
                             <li><a href="contact.html">Contact Us <small>Customer service</small></a></li>
-                            <li  class="adminSites"><a href="ad_products.html">Products <small>Maintain Products </small></a></li>
+                            <li class="adminSites"><a href="ad_products.html">Products <small>Maintain Products </small></a></li>
                             <li class="active adminSites"><a href="ad_users.html">User<small>Maintain Users </small></a></li>
-                            <li><div class="cart" style="margin: inherit;"><a id="MyOrders">
-                                <img src="Resources/images/shopping-cart.png" style="height: 30px;" /><small>Quantity <i id="Quantity"> 0 </i></small>  </a></div></li><li>
                             <li>
                                 <div class="cart" style="margin: inherit;">
-                                    <a id="myLogin" >
+                                    <a id="MyOrders">
+                                        <img src="Resources/images/shopping-cart.png" style="height: 30px;" /><small>Quantity <i id="Quantity"> 0 </i></small>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                            <li>
+                                <div class="cart" style="margin: inherit;">
+                                    <a id="myLogin">
                                         <img src="Resources/images/icon_login.png" style="height: 30px;" /><small> <i id="Customername"> </i></small>
                                     </a>
                                 </div>
@@ -57,7 +63,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div id="OrderContainer" style="margin-left: 1%;" class="row">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -83,12 +89,13 @@
                             <div class="modal-dialog">
 
                                 <div id="UserType" class="modal-content">
-                                    <div class="modal-header"> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
                                     <div class="modal-body" style="height: 100px;">
                                         <div class="col-lg-5">
-                                            <button type="button"  style="height: 60px;width: 155px;" class="btn btn-default" data-dismiss="modal" onclick="NewUser()">New User</button>
+                                            <button type="button" style="height: 60px;width: 155px;" class="btn btn-default" data-dismiss="modal" onclick="NewUser()">New User</button>
                                         </div>
                                         <div class="col-lg-5">
                                             <button type="button" style="height: 60px;width: 155px;" class="btn btn-default" data-dismiss="modal" onclick="ExistingUser()">Existing User</button>
@@ -102,34 +109,35 @@
                         <div class="modal fade" id="ExistingUserModal" role="dialog">
                             <div class="modal-dialog">
                                 <div id="ExistingUser" class="modal-content">
-                                    <div class="modal-header">  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
                                     <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Username</label>
-                                                <input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp" placeholder="Enter username">
-                                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="InputPassword" placeholder="Password">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Username</label>
+                                            <input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp" placeholder="Enter username">
+                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                                        </div>
                                     </div>
 
 
                                     <div class="modal-footer">
                                         <div class="col-lg-3"></div>
 
-                                            <div class="col-lg-3">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Login()">Login</button>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-
-
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Login()">Login</button>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -138,7 +146,8 @@
                         <div class="modal fade" id="NewUserModal" role="dialog">
                             <div class="modal-dialog">
                                 <div id="ExistingUser" class="modal-content">
-                                    <div class="modal-header">  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
                                     <div class="modal-body">
@@ -147,7 +156,7 @@
                                                 Full Name
                                                 <input type="text" class="form-control" id="InputName">
                                             </p>
-                                          </div>
+                                        </div>
                                         <div class="form-group">
                                             <p ID="SSNlbl">
                                                 Social security number
@@ -173,8 +182,9 @@
                                             </p>
                                         </div>
                                         <div class="form-group">
-                                            <p ID="exampleInputEmail1">Username 
-                                            <input type="text" class="form-control" id="InpUsername" >   
+                                            <p ID="exampleInputEmail1">
+                                                Username
+                                                <input type="text" class="form-control" id="InpUsername">
                                             </p>
                                         </div>
                                         <div class="form-group">
@@ -183,7 +193,7 @@
                                                 <input type="text" class="form-control" id="InpPassword">
                                             </p>
                                         </div>
- 
+
                                     </div>
 
 

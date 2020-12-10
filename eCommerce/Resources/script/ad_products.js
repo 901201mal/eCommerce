@@ -8,6 +8,7 @@ var OrderIdentity ;
 var Customer = { CustomerIdentity: null };
 
 $(document).ready(function () {
+    $('.adminSites').hide();
     // Read the cookie
             var UserCookie = Cookies.get('Customer');
             if (UserCookie != null) {
@@ -26,8 +27,9 @@ $(document).ready(function () {
 function SetUser(UserData) {
     $('#Customername')[0].innerText = UserData.Customername;
     Customer.CustomerIdentity = UserData.CustomerIdentity;
-
-}
+    if (UserData.TypeIdentity == 1)
+        $('.adminSites').show();
+}   
 
 function GetProduct(ds) {
     var source =

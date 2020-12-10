@@ -8,6 +8,7 @@ var OrderIdentity ;
 var Customer = { CustomerIdentity: null };
 
 $(document).ready(function () {
+    $('.adminSites').hide();
     //Create Shopping cart modal
             $("#MyOrders").click(function () {
                 $("#OrderModal").modal("toggle");
@@ -201,7 +202,8 @@ function SetVote(object) {
 function SetUser(UserData) {
     $('#Customername')[0].innerText = UserData.Customername;
     Customer.CustomerIdentity = UserData.CustomerIdentity;
-
+    if (UserData.TypeIdentity == 1)
+        $('.adminSites').show();
 }
 
 function ConnecToDatebase(method, obj) {

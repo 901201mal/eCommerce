@@ -18,8 +18,7 @@ using System.Data.SqlClient;
 namespace eCommerce
 {
     public class DataController : ApiController
-    {
-        SqlConnection nwindConn = new SqlConnection("******************************MASKED******************************");
+    { 
         DataTable ErrorData = new DataTable();
 
         public DataTable ConstructError(string ErrorCode, Exception e)
