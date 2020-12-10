@@ -19,7 +19,7 @@ namespace eCommerce
 {
     public class DataController : ApiController
     {
-        SqlConnection nwindConn = new SqlConnection("Data Source=mssql101.windows.loopia.com;Initial Catalog=e002292;Integrated Security=False;User ID=e002292a;Password=Winter2019Winter2019!;");
+        SqlConnection nwindConn = new SqlConnection("******************************MASKED******************************");
         DataTable ErrorData = new DataTable();
 
         public DataTable ConstructError(string ErrorCode, Exception e)
