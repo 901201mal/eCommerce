@@ -18,7 +18,8 @@ using System.Data.SqlClient;
 namespace eCommerce
 {
     public class DataController : ApiController
-    { 
+    {
+    
         DataTable ErrorData = new DataTable();
 
         public DataTable ConstructError(string ErrorCode, Exception e)
@@ -381,6 +382,8 @@ namespace eCommerce
                 Adapter.SelectCommand.Parameters.AddWithValue("@ProductIdentity", obj.ProductIdentity);
                 Adapter.SelectCommand.Parameters.AddWithValue("@StatusIdentity", obj.StatusIdentity);
                 Adapter.SelectCommand.Parameters.AddWithValue("@Price", obj.Price);
+                if (obj.Discount == null)
+                    obj.Discount = "0";
                 Adapter.SelectCommand.Parameters.AddWithValue("@Discount", obj.Discount);
                 Adapter.SelectCommand.Parameters.AddWithValue("@Quantity", obj.Quantity);
                 //Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
@@ -417,19 +420,24 @@ namespace eCommerce
                 nwindConn.Open();
                 foreach (OrderRow obj in List)
                 {
-                    SqlCommand cmd = new SqlCommand("EXECUTE Store.[sp_UpdateOrder] @OrderIdentity,@ProductIdentity,@StatusIdentity,@Price,@Discount, @Quantity ", nwindConn);
-                    //   Adapter.SelectCommand.Parameters.AddWithValue("@ResturantId", obj.ResturantId); 
-                    cmd.Parameters.AddWithValue("@OrderIdentity", obj.OrderIdentity);
-                    cmd.Parameters.AddWithValue("@ProductIdentity", obj.ProductIdentity);
-                    cmd.Parameters.AddWithValue("@StatusIdentity", obj.StatusIdentity);
-                    cmd.Parameters.AddWithValue("@Price", obj.Price);
-                    cmd.Parameters.AddWithValue("@Discount", obj.Discount);
-                    cmd.Parameters.AddWithValue("@Quantity", obj.Quantity);
-                    cmd.ExecuteNonQuery();
-                    //Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
-                    // Adapter.SelectCommand.Parameters.AddWithValue("@Quantity", obj.ResturantId);
+                    if (obj.ProductIdentity != null)
+                    {
+                        SqlCommand cmd = new SqlCommand("EXECUTE Store.[sp_UpdateOrder] @OrderIdentity,@ProductIdentity,@StatusIdentity,@Price,@Discount, @Quantity ", nwindConn);
+                        //   Adapter.SelectCommand.Parameters.AddWithValue("@ResturantId", obj.ResturantId); 
+                        cmd.Parameters.AddWithValue("@OrderIdentity", obj.OrderIdentity);
+                        cmd.Parameters.AddWithValue("@ProductIdentity", obj.ProductIdentity);
+                        cmd.Parameters.AddWithValue("@StatusIdentity", obj.StatusIdentity);
+                        cmd.Parameters.AddWithValue("@Price", obj.Price);
+                        if (obj.Discount == null)
+                            obj.Discount = "0";
+                        cmd.Parameters.AddWithValue("@Discount", obj.Discount);
+                        cmd.Parameters.AddWithValue("@Quantity", obj.Quantity);
+                        cmd.ExecuteNonQuery();
+                        //Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
+                        // Adapter.SelectCommand.Parameters.AddWithValue("@Quantity", obj.ResturantId);
 
-                    cmd.CommandTimeout = 30;
+                        cmd.CommandTimeout = 30;
+                    }
                 }
                 nwindConn.Close();
                 dt = ConstructFeedBack("C#-12");
@@ -450,10 +458,13 @@ namespace eCommerce
             try
             {
                 nwindConn.Open();
-                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_SetRating] @CustomerIdentity,@ProductIdentity,@Score", nwindConn);
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_SetRating] @CustomerIdentity,@ProductIdentity,@Score,@Comments", nwindConn);
                 Adapter.SelectCommand.Parameters.AddWithValue("@CustomerIdentity", obj.CustomerIdentity);
                 Adapter.SelectCommand.Parameters.AddWithValue("@ProductIdentity", obj.ProductIdentity);
                 Adapter.SelectCommand.Parameters.AddWithValue("@Score", obj.Score);
+                if (obj.Comments == null)
+                    obj.Comments = "";
+                Adapter.SelectCommand.Parameters.AddWithValue("@Comments", obj.Comments); 
                 Adapter.SelectCommand.CommandTimeout = 30;
                 Adapter.Fill(dt);
                 nwindConn.Close();
@@ -473,5 +484,197 @@ namespace eCommerce
             }
 
         }
+
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult ConfirmOrder(OrderRow obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_ConfirmOrder] @CustomerIdentity, @OrderIdentity", nwindConn);
+                Adapter.SelectCommand.Parameters.AddWithValue("@CustomerIdentity", obj.CustomerIdentity);
+                Adapter.SelectCommand.Parameters.AddWithValue("@OrderIdentity", obj.OrderIdentity);
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-14", ex);
+                return Ok(dt);
+            }
+
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult GetComments(Product obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_GetComments] @ProductIdentity", nwindConn);
+                Adapter.SelectCommand.Parameters.AddWithValue("@ProductIdentity", obj.ProductIdentity);
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-15", ex);
+                return Ok(dt);
+            }
+        }
+
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult GetCurrentOrders(OrderRow obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_GetCurrentOrders] @CustomerIdentity ", nwindConn);
+                Adapter.SelectCommand.Parameters.AddWithValue("@CustomerIdentity", obj.CustomerIdentity);
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-16", ex);
+                return Ok(dt);
+            }
+
+        }
+
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult GetOrderRows(OrderRow obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_GetOrderRows]", nwindConn);
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-17", ex);
+                return Ok(dt);
+            }
+
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult UpdateOrderRow(OrderRow obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_UpdateOrderRow] @OrderIdentity,@RowIdentity,@StatusIdentity,@Price,@Discount,@Quantity ", nwindConn);
+                //   Adapter.SelectCommand.Parameters.AddWithValue("@ResturantId", obj.ResturantId); 
+                Adapter.SelectCommand.Parameters.AddWithValue("@OrderIdentity", obj.OrderIdentity);
+                Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
+                Adapter.SelectCommand.Parameters.AddWithValue("@StatusIdentity", obj.StatusIdentity);
+                Adapter.SelectCommand.Parameters.AddWithValue("@Price", obj.Price);
+                if (obj.Discount == null)
+                    obj.Discount = "0";
+                Adapter.SelectCommand.Parameters.AddWithValue("@Discount", obj.Discount);
+                Adapter.SelectCommand.Parameters.AddWithValue("@Quantity", obj.Quantity);
+                //Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
+                // Adapter.SelectCommand.Parameters.AddWithValue("@Quantity", obj.ResturantId);
+
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-18", ex);
+                return Ok(dt);
+            }
+
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public IHttpActionResult DeleteOrderRow(OrderRow obj)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                nwindConn.Open();
+                SqlDataAdapter Adapter = new SqlDataAdapter("EXECUTE Store.[sp_DeleteOrderRow] @RowIdentity", nwindConn);
+                Adapter.SelectCommand.Parameters.AddWithValue("@RowIdentity", obj.RowIdentity);
+                Adapter.SelectCommand.CommandTimeout = 30;
+                Adapter.Fill(dt);
+                nwindConn.Close();
+
+                if (dt == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dt);
+                // return dt;
+
+            }
+            catch (Exception ex)
+            {
+                dt = ConstructError("C#-19", ex);
+                return Ok(dt);
+            }
+
+        }
+
     }
 }

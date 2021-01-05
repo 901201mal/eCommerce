@@ -6,49 +6,56 @@ var ProductList= [];
 var orderrows = [];
 var OrderIdentity ;
 var Customer = { CustomerIdentity: null };
+var UserCookie = null;
+var UserData = null;
 
 $(document).ready(function () {
     $('.adminSites').hide();
     //Create Shopping cart modal
-            $("#MyOrders").click(function () {
-                $("#OrderModal").modal("toggle");
-            });
+    $("#MyOrders").click(function () {
+        $("#OrderModal").modal("toggle");
+    });
 
     // Read the cookie
-            var UserCookie = Cookies.get('Customer');
-            if (UserCookie != null) {
-               var  UserData = JSON.parse(UserCookie);
-                SetUser(UserData);
-            }
+    UserCookie = Cookies.get('User');
+    if (UserCookie != null) {
+        UserData = JSON.parse(UserCookie);
+        ConnecToDatebase('GetLogin', UserData);
+    }
 
 
-            $("#myLogin").click(function () {
-                if (Customer.CustomerIdentity == null)
-                    $("#LoginModal").modal("toggle");
-                else
-                    $("#LogoutModal").modal("toggle");
-            });
-
-                //Load Products into the page
-            ConnecToDatebase('GetDiscountedProducts', {});
+    $("#myLogin").click(function () {
+        if (UserData == null)
+            $("#LoginModal").modal("toggle");
+        else
+            $("#LogoutModal").modal("toggle");
+    });
+    //Load Products into the page
+    ConnecToDatebase('GetDiscountedProducts', {});
 });
+
 function Logout() {
-    Cookies.remove('Customer');
-    location.reload();
+    Cookies.remove('User');
+    document.location.href = "Index.html";
 }
 
 function ExistingUser()
 {
         $("#ExistingUserModal").modal("toggle");
 }
+
 function NewUser()
 {
         $("#NewUserModal").modal("toggle");
 }
+
 function checkout() {
     if (Customer.CustomerIdentity == null)
         $("#LoginModal").modal("toggle");
+    else
+        ConnecToDatebase('ConfirmOrder', { OrderIdentity: OrderIdentity, CustomerIdentity: UserData.CustomerIdentity });
 }
+
 function RegisterUser() {
 
     var UserObject =
@@ -135,20 +142,21 @@ function GetProduct(ds) {
 
             elements += '<div class="col-lg-3 AttributeHeader">Description</div>';
             elements += '<div class="col-lg-9">' + ds[i].Description + '</div>';
-            elements += '<div class="col-lg-3 AttributeHeader">Color</div>';
-            elements += '<div class="col-lg-9 ">' + ds[i].Color + '</div>';
-            elements += '<div class="col-lg-3 AttributeHeader">Size</div>';
-            elements += '<div class="col-lg-9 ">' + ds[i].Size + '</div>';
-            elements += '<div class="col-lg-3 AttributeHeader">Price</div>';
-            elements += '<div class="col-lg-9 ">';
+            elements += '<div class="col-lg-2 AttributeHeader" ><b>Color</b></div>';
+            elements += '<div class="col-lg-5 ">' + ds[i].Color + '</div>';
+            elements += '<div class="col-lg-2 AttributeHeader">Size</div>';
+            elements += '<div class="col-lg-3 ">' + ds[i].Size + '</div>';
+            elements += '<div class="col-lg-2 AttributeHeader">Price</div>';
+            elements += '<div class="col-lg-5 ">';
             if (ds[i].Discount > 0)
                 elements += '<i id="ordPrice"> Ord.' + ds[i].Price + '   </i>Disc.' + (ds[i].Price * (1 - (ds[i].Discount / 100))).toFixed(2);
             else
                 elements += ds[i].Price;
             elements += '</div>';
-
-            elements += '<div class="col-lg-3 AttributeHeader">Rating</div>';
-            elements += '<div class="col-lg-9 Rating" id="' + ds[i].ProductIdentity + '-Rating" ></div>';
+            elements += '<div class="col-lg-3 AttributeHeader">Comments</div>';
+            elements += '<div class="col-lg-2 "><img  onClick="GetComments(this)" style="width: 15px;height: 15px;" src="Resources/images/Comment.png" id="Comment-' + ds[i].ProductIdentity + '"/></div>';
+            elements += '<div class="col-lg-2 AttributeHeader">Rating</div>';
+            elements += '<div class="col-lg-4 Rating" id="' + ds[i].ProductIdentity + '-Rating" ></div>';
             elements += '<button class="RateBtn" type="button" id="Button-' + ds[i].ProductIdentity + '"onClick="SetVote(this)" > </button>';
             //<div onClick="SetVote(this)" class="' + ds[i].ProductIdentity + '-Rating"></div>
             elements += '</div>';
@@ -173,37 +181,99 @@ function GetProduct(ds) {
     }
     $(".Rating").jqxRating({ width: 150, height: 35, value :0});
       
-        for (var i =0;i<ds.length;i++)
-            $('#' + ds[i].ProductIdentity + '-Rating').jqxRating('setValue', ds[i].Score);      
+    for (var i = 0; i < ds.length; i++)
+        $('#' + ds[i].ProductIdentity + '-Rating').jqxRating('setValue', ds[i].Score);
        
      
    
 }
 
+function GetComments(object) {
+
+    var Identity = object.id.substr(object.id.indexOf('-') + 1, object.id.length);
+    for (var i = 0; i < ProductList.length; i++)
+        if (ProductList[i].ProductIdentity == Identity)
+            $('#ProductName').text(ProductList[i].Productname);
+
+    ConnecToDatebase('GetComments', { ProductIdentity: Identity });
+    //   alert('comments for ' + object.id.substr(object.id.indexOf('-') + 1, object.id.length));
+}
+
+function ShowComments(ds) {
+    if (ds[0].NoData == 0)
+        alert('There are no comments to show!')
+    else {
+        $("#CommentsModal").modal("toggle");
+
+        $("#CommentsGrid").jqxGrid(
+       {
+           width: '100%',
+           height: 400,
+           theme: 'light',
+
+           scrollbarsize: 10,
+           filterable: true,
+           editable: false,
+           columns: [
+             { text: 'Name', datafield: 'Customername', width: '20%' },
+             { text: 'Score', datafield: 'Score', width: '10%' },
+             { text: 'Date', datafield: 'InsertDate', width: '10%' },
+             { text: 'Comment', datafield: 'Comments', width: '55%' }
+           ]
+       });
+
+        $('#CommentsGrid').jqxGrid('clear');
+        var source =
+           {
+               localdata: ds,
+               datafields: [
+                   { name: 'Customername', type: 'string' },
+                   { name: 'Score', type: 'string' },
+                   { name: 'InsertDate', type: 'string' },
+                   { name: 'Comments', type: 'string' }
+               ],
+               datatype: "array"
+           };
+
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#CommentsGrid").jqxGrid({
+            source: dataAdapter
+        });
+    }
+}
 
 function SetVote(object) {
+    $("#CommentsInputModal").modal("toggle");
+    $('#jqxTextArea').jqxTextArea({ placeHolder: 'Please give us your opinion!', height: 200, width: '100%', minLength: 1 });
+
+}
+
+function CompleteVote(object) {
     if (Customer.CustomerIdentity != null) {
-        var value = $('#' + object.id.substr(object.id.indexOf('-')+1,object.id.length)+'-Rating').jqxRating('getValue');
+        var value = $('#' + object.id.substr(object.id.indexOf('-') + 1, object.id.length) + '-Rating').jqxRating('getValue');
         if (value == null)
             value = 0;
-        alert("The value is " + value);
+
         ConnecToDatebase('SetRating',
             {
                 CustomerIdentity: Customer.CustomerIdentity,
                 ProductIdentity: object.id.substr(object.id.indexOf('-') + 1, object.id.length),
-                Score: value
+                Score: value,
+                Comments: $('#InputComments').jqxTextArea('val')
             });
     }
     else
         alert('Only logged in customers may vote on our products');
 }
 
-
 function SetUser(UserData) {
     $('#Customername')[0].innerText = UserData.Customername;
     Customer.CustomerIdentity = UserData.CustomerIdentity;
+    //    //ConnecToDatebase('GetOrders', { CustomerIdentity: Customer.CustomerIdentity });
     if (UserData.TypeIdentity == 1)
         $('.adminSites').show();
+
 }
 
 function ConnecToDatebase(method, obj) {
@@ -218,26 +288,46 @@ function ConnecToDatebase(method, obj) {
                 if (response[0].ErrorStatus == 0) {
                     if (method == 'GetDiscountedProducts')
                         GetProduct(response);
-                    else if (method == 'GetOrders') {
+                    else if ((method == 'GetOrders' && response[0].NoData == 1) || method == 'SetOrder') {
+                        OrderIdentity = response[0].OrderIdentity;
                         PopulateOrders(response);
                     }
-                    else if (method == 'SetOrder') {
-                        OrderIdentity = response[0].OrderIdentity;
+                    else if (method == 'GetComments') {
+                        ShowComments(response);
                     }
                     else if (method == 'UpdateOrder') {
                         //DoSomething// var s = '';
                     }
                     else if (method == 'GetLogin') {
                         SetUser(response[0]);
+                        if (UserCookie == null) {
+                            obj.TypeIdentity = response[0].TypeIdentity;
+                            Cookies.set('User', JSON.stringify(obj));
+                            UserData = obj;
+                        }
                         if (response[0].TypeIdentity != 1)
                             ConnecToDatebase('GetOrders', { CustomerIdentity: response[0].CustomerIdentity });
-                        // Set a cookie
-                        Cookies.set('Customer', JSON.stringify(response[0]));
+                    
                     }
                     else if (method == 'SetLogin') {
                         SetUser(response[0]);
+                        UserData = response[0];
                         // Set a cookie
-                        Cookies.set('Customer', JSON.stringify(response[0]));
+                        Cookies.set('User', JSON.stringify(response[0]));
+                    }
+                    else if (method == 'ConfirmOrder') {
+                        alert('Order Confirmed!');
+                        location.reload();
+                        //   ConnecToDatebase('GetOrders', { CustomerIdentity: obj.CustomerIdentity });
+                        // Set a cookie
+
+                    }
+                    else if (method == 'SetRating') {
+                        alert('Rate registered!');
+
+                        //   ConnecToDatebase('GetOrders', { CustomerIdentity: obj.CustomerIdentity });
+                        // Set a cookie
+
                     }
                 }
                 else {
@@ -251,6 +341,7 @@ function ConnecToDatebase(method, obj) {
     });
 
 }
+
 function PopulateOrders(OrderList)
 {
     orderrows =  [];
@@ -275,13 +366,21 @@ function PopulateOrders(OrderList)
 
 function Order(t) {
     var FlagExisting = 0;
+
     //If existing row, increase quantity.
-    for (var k = 0; k < orderrows.length; k++)
-    {
+    for (var k = 0; k < orderrows.length; k++) {
         if (orderrows[k].ProductIdentity == t.id) {
-            orderrows[k].Quantity = orderrows[k].Quantity + 1;
-            orderrows[k].OrderIdentity = OrderIdentity;
-            FlagExisting = 1;
+            for (var i = 0; i < ProductList.length; i++) {
+                if (orderrows[k].ProductIdentity == ProductList[i].ProductIdentity)
+                    if (orderrows[k].Quantity < ProductList[i].Stock) {
+                        orderrows[k].Quantity = orderrows[k].Quantity + 1;
+                        orderrows[k].OrderIdentity = OrderIdentity;
+
+                    }
+                    else if (orderrows[k].Quantity == ProductList[i].Stock)
+                        alert('Out of stock!')
+                FlagExisting = 1;
+            }
         }
     }
 
@@ -306,36 +405,35 @@ function Order(t) {
     sumOrders();
 }
 
-
-
 function DeleteLine(t) {
     for (var k = 0; k < orderrows.length; k++)
-        if (orderrows[k].ProductIdentity  == t.id) {
+        if (orderrows[k].ProductIdentity == t.id) {
+
             if (orderrows[k].Quantity > 1)
                 orderrows[k].Quantity = orderrows[k].Quantity - 1;
-            else
-                orderrows.splice(k, 1);
+            else if (orderrows[k].Quantity == 1)
+                orderrows[k].StatusIdentity = 3;
         }
 
     sumOrders();
 
 }
 
-
 function sumOrders() {
     var sumQuantity = 0;
     var sumPrice = 0;
     $('#OrderContainer, #TotalPrice').empty();
-    for (var i = 0; i < orderrows.length; i++)
-    {
-        var element = '';
-        sumQuantity = sumQuantity + Number(orderrows[i].Quantity);
-        sumPrice = sumPrice + (Number(orderrows[i].Price * (1 - (orderrows[i].Discount / 100))) * Number(orderrows[i].Quantity));
-        element += '<div class"orderrow" style=" height: 30px !important;"> <div class="col-lg-7" >' + orderrows[i].Productname + '</div>';
-        element += '<div class="col-lg-2">' + Number(orderrows[i].Price * (1 - (orderrows[i].Discount / 100))) + ' SEK </div>';
-        element += '<div class="col-lg-2">' + orderrows[i].Quantity + ' Units </div>';
-        element += '<div class="col-xs-1 closeContainer"><a onClick="DeleteLine(this)" id="' + orderrows[i].ProductIdentity  + '"   class="close">&times;</a></div></div>';
-        $('#OrderContainer').append(element);
+    for (var i = 0; i < orderrows.length; i++) {
+        if (orderrows[i].StatusIdentity == 1) {
+            var element = '';
+            sumQuantity = sumQuantity + Number(orderrows[i].Quantity);
+            sumPrice = Number(Number(sumPrice) + Number(orderrows[i].Price * (1 - (orderrows[i].Discount / 100))) * Number(orderrows[i].Quantity)).toFixed(2);
+            element += '<div class"orderrow" style=" height: 30px !important;"> <div class="col-lg-7" >' + orderrows[i].Productname + '</div>';
+            element += '<div class="col-lg-2">' + Number(orderrows[i].Price * (1 - (orderrows[i].Discount / 100))).toFixed(2) + ' SEK </div>';
+            element += '<div class="col-lg-2">' + orderrows[i].Quantity + ' Units </div>';
+            element += '<div class="col-xs-1 closeContainer"><a onClick="DeleteLine(this)" id="' + orderrows[i].ProductIdentity + '"   class="close">&times;</a></div></div>';
+            $('#OrderContainer').append(element);
+        }
     }
 
     $('#TotalPrice')[0].innerText = 'Totalt: ' + sumPrice + ':-';
@@ -343,10 +441,10 @@ function sumOrders() {
 
     if (OrderIdentity == null)
         ConnecToDatebase('SetOrder', orderrows[0]);
-    else 
+    else
         ConnecToDatebase('UpdateOrder', orderrows);
 
-} 
+}
  
    
 

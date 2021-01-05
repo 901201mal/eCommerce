@@ -31,8 +31,10 @@
 
                             <li><a href="About.html">About us <small>About us</small></a></li>
                             <li><a href="contact.html">Contact Us <small>Customer service</small></a></li>
+                            <li><a href="Orders.html">My Orders<small>My current Orders</small></a></li>
                             <li class="adminSites"><a href="ad_products.html">Products <small>Maintain Products </small></a></li>
                             <li class="adminSites"><a href="ad_users.html">User<small>Maintain Users </small></a></li>
+                            <li class="adminSites"><a href="ad_orders.html">Orders<small>Maintain Orders </small></a></li>
                             <li><div class="cart" style="margin: inherit;"><a id="MyOrders">
                                 <img src="Resources/images/shopping-cart.png" style="height: 30px;" /><small>Quantity <i id="Quantity"> 0 </i></small>  </a></div></li><li>
                             <li>
@@ -46,7 +48,7 @@
 
                         </ul>
                     </div>
-                    <div class="clr">
+                    <div >
                         <div class="modal fade" id="OrderModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -212,6 +214,62 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="CommentsModal" role="dialog">
+                            <div class="modal-dialog" style="width:1000px; max-height:600px;">
+
+                                <div id="Product#" class="modal-content" style="height:500px;">
+                                    <div class="modal-header">
+                                        <div class="col-lg-9">
+                                            <h4 class="modal-title" id="ProductName"> </h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body" style="height: 100px;">
+                                        <div id="CommentsContainer">
+                                            <div id="CommentsGrid">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="CommentsInputModal" role="dialog">
+                            <div class="modal-dialog">
+                                <div id="Feedback" class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <label for="exampleInputEmail1">Score Comments</label>
+
+                                        <div>
+                                            <textarea id="jqxTextArea"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <div class="col-lg-2"></div>
+
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="CompleteVote()">Complete</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         </div>
 
 

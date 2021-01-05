@@ -6,23 +6,31 @@ var ProductList= [];
 var orderrows = [];
 var OrderIdentity ;
 var Customer = { CustomerIdentity: null };
-
+var UserCookie = null;
+var UserData = null;
 $(document).ready(function () {
     $('.adminSites').hide();
     // Read the cookie
-            var UserCookie = Cookies.get('Customer');
-            if (UserCookie != null) {
-               var  UserData = JSON.parse(UserCookie);
-                SetUser(UserData);
-            }
-    
-    //            //Load Products into the page
-    //
+    UserCookie = Cookies.get('User');
+    if (UserCookie != null) {
+        UserData = JSON.parse(UserCookie);
+        ConnecToDatebase('GetLogin', UserData);
+    }
+    $("#myLogin").click(function () {
+        if (UserData == null)
+            $("#LoginModal").modal("toggle");
+        else
+            $("#LogoutModal").modal("toggle");
+    });
             ConnecToDatebase('GetProducts', {});
 
     
            
 });
+function Logout() {
+    Cookies.remove('User');
+    document.location.href = "Index.html";
+}
 
 function SetUser(UserData) {
     $('#Customername')[0].innerText = UserData.Customername;
@@ -93,7 +101,8 @@ function GetProduct(ds) {
     $("#ProductsGrid").jqxGrid(
     {
         width: '100%',
-        autoHeight:true,
+        autoHeight: true,
+        //theme: 'material',
         source: dataAdapter,
         filterable: true, 
         showeverpresentrow: true,
@@ -109,19 +118,19 @@ function GetProduct(ds) {
           { text: 'Size', datafield: 'Size', width: '5%' },
           { text: 'Price', datafield: 'Price', width: '5%' },
           { text: 'Discount', datafield: 'Discount', width: '7%' },
-          { text: 'Image URL', datafield: 'ImageURL', width: '25%' },
-          { text: 'Score', datafield: 'Score', width: '5%' },
-          {
-              text: '', width: '3%', datafield: 'Edit', editable: false, cellsalign: 'center', columntype: 'button', cellsrenderer: function () {
-            return " <img id='deleteimg' src='Resources/images/delete.png' />";
+          { text: 'Image URL', datafield: 'ImageURL', width: '30%' }//,
+        //  { text: 'Score', datafield: 'Score', width: '5%' },
+        // // {
+        //      text: '', width: '3%', datafield: 'Edit', editable: false, cellsalign: 'center', columntype: 'button', cellsrenderer: function () {
+        //    return " <img id='deleteimg' src='Resources/images/delete.png' />";
                                
-        }, buttonclick: function (row) {
-            // open the popup window when the user clicks a button.
-            editrow = row;
-            $("#dataTable").jqxGrid('deleterow', row);
+        //}, buttonclick: function (row) {
+        //    // open the popup window when the user clicks a button.
+        //    editrow = row;
+        //    $("#ProductsGrid").jqxGrid('deleterow', row);
                                
-        }
-  }
+        //}
+  //}
         ]
     });
 }
@@ -142,8 +151,8 @@ function ConnecToDatebase(method, obj) {
                         GetProduct(response);
                     else if (method == 'GetLogin') {
                         SetUser(response[0]);
-                        // Set a cookie
-                        Cookies.set('Customer', JSON.stringify(response[0]));
+                        if (UserCookie == null)
+                            Cookies.set('User', JSON.stringify(obj));
                     }
                 }
                 else {

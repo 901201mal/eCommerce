@@ -30,8 +30,10 @@
 
                             <li><a href="About.html">About us <small>About us</small></a></li>
                             <li><a href="contact.html">Contact Us <small>Customer service</small></a></li>
+                            <li><a href="Orders.html">My Orders<small>My current Orders</small></a></li>
                             <li class="adminSites"><a href="ad_products.html">Products <small>Maintain Products </small></a></li>
                             <li class="active adminSites"><a href="ad_users.html">User<small>Maintain Users </small></a></li>
+                            <li class="adminSites"><a href="ad_orders.html">Orders<small>Maintain Orders </small></a></li>
                             <li>
                                 <div class="cart" style="margin: inherit;">
                                     <a id="MyOrders">
@@ -211,6 +213,24 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="LogoutModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <div id="UserType" class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <div class="modal-body" style="height: 100px;">
+
+                                        <div class="col-lg-12">
+                                            <button type="button" style="height: 60px;width: 155px;" class="btn btn-danger" data-dismiss="modal" onclick="Logout()">Log out</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -111,6 +111,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ad_orders.html" />
+    <Content Include="Orders.html" />
     <Content Include="ad_users.html" />
     <Content Include="ad_products.html" />
     <Content Include="Discount.html" />
@@ -120,8 +122,14 @@
     <Content Include="Global.asax" />
     <Content Include="Resources\css\bootstrap.min.css" />
     <Content Include="Resources\css\jqx.base.css" />
+    <Content Include="Resources\css\jqx.light.css" />
     <Content Include="Resources\css\shop.css" />
+    <Content Include="Resources\Images\comment.png" />
     <Content Include="Resources\Images\delete.png" />
+    <Content Include="Resources\Images\icon-down.png" />
+    <Content Include="Resources\Images\icon-left.png" />
+    <Content Include="Resources\Images\icon-right.png" />
+    <Content Include="Resources\Images\icon-up.png" />
     <Content Include="Resources\Images\icon_login.png" />
     <Content Include="Resources\Images\Rate_icon.png" />
     <Content Include="Resources\Images\Shoes\men\Black-Shoe1.jpg" />
@@ -145,6 +153,8 @@
     <Content Include="Resources\Images\star_disabled.png" />
     <Content Include="Resources\Images\star_hover.png" />
     <Content Include="Resources\Images\tap.png" />
+    <Content Include="Resources\script\ad_orders.js" />
+    <Content Include="Resources\script\Orders.js" />
     <Content Include="Resources\script\Contact.js" />
     <Content Include="Resources\script\ad_users.js" />
     <Content Include="Resources\script\bootstrap.min.js" />

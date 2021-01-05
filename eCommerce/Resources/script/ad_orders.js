@@ -23,7 +23,7 @@ $(document).ready(function () {
         else
             $("#LogoutModal").modal("toggle");
     });
-    ConnecToDatebase('GetUsers', {});
+    ConnecToDatebase('GetOrderRows', {});
 
 });
 function Logout() {
@@ -37,19 +37,20 @@ function SetUser(UserData) {
         $('.adminSites').show();
 }
 
-function GetUser(ds) {
+function GetOrders(ds) {
     var source =
         {
             localdata: ds,
             datafields: [
-                { name: 'UserIdentity', type: 'string' },
-                { name: 'Username', type: 'string'},
-                { name: 'Password', type: 'string'},
-                { name: 'Customername', type: 'string' },
-                { name: 'Epost', type: 'string' },
-                { name: 'SSN', type: 'string'},
-                { name: 'Deliveryaddress', type: 'string'},
-                { name: 'Billingaddress', type: 'string'}
+                { name: 'OrderIdentity', type: 'string' },
+                { name: 'StatusIdentity', type: 'string' },
+                { name: 'StatusDescription', type: 'string' },
+                { name: 'RowIdentity', type: 'string'},
+                { name: 'ProductIdentity', type: 'string'},
+                { name: 'Productname', type: 'string' },
+                { name: 'Price', type: 'string' },
+                { name: 'Discount', type: 'string'},
+                { name: 'Quantity', type: 'string'}  
             ],
             datatype: "array", 
             //addrow: function (rowid, rowdata, position, commit) {
@@ -61,16 +62,16 @@ function GetUser(ds) {
             //        return false;
             //},
             updaterow: function (rowid, rowdata, commit) {
-                if (rowdata.UserIdentity.length > 0) { 
-                    ConnecToDatebase('UpdateUser', rowdata);
+                if (rowdata.RowIdentity.length > 0) {
+                    ConnecToDatebase('UpdateOrderRow', rowdata);
                     commit(true); 
                 }
                 else
                     return false;
             },
             deleterow: function (rowid, rowdata, commit) {
-                if (rowdata.UserIdentity.length > 0) {
-                    ConnecToDatebase('DeleteUser', rowdata);
+                if (rowdata.RowIdentity.length > 0) {
+                    ConnecToDatebase('DeleteOrderRow', rowdata);
                     commit(true);
                 }
                 else
@@ -80,11 +81,11 @@ function GetUser(ds) {
 
     var dataAdapter = new $.jqx.dataAdapter(source);
 
-    $("#UsersGrid").jqxGrid(
+    $("#OrdersGrid").jqxGrid(
     {
         width: '100%',
         autoHeight: true,
-        //theme: 'material',
+       // theme: 'material',
         source: dataAdapter,
         filterable: true, 
         showeverpresentrow: true,
@@ -92,25 +93,27 @@ function GetUser(ds) {
         everpresentrowactions: "update remove reset",
         editable: false,
         columns: [
-          { text: 'ID', datafield: 'UserIdentity', width: '5%' },
-          { text: 'Username', datafield: 'Username', width: '7%' },
-          { text: 'Password', datafield: 'Password', width: '7%' },
-          { text: 'Customername', datafield: 'Customername', width: '10%' },
-          { text: 'SSN', datafield: 'SSN', width: '10%' },
-          { text: 'Epost', datafield: 'Epost', width: '18%' },
-          { text: 'Deliveryaddress', datafield: 'Deliveryaddress', width: '20%' },
-          { text: 'Billingaddress', datafield: 'Billingaddress', width: '20%' }//,
-      //        {  
-      //            text: '', width: '3%', datafield: 'Edit', editable: false, cellsalign: 'center', columntype: 'button', cellsrenderer: function () {
-      //          return " <img id='deleteimg' src='Resources/images/delete.png' />";
-                               
-      //      }, buttonclick: function (row) {
-      //          // open the popup window when the user clicks a button.
-      //          editrow = row;
-      //          $("#UsersGrid").jqxGrid('deleterow', row);
-                               
-      //      }
-      //}
+          { text: 'Order', datafield: 'OrderIdentity', width: '10%' },
+          { text: 'Row', datafield: 'RowIdentity', width: '10%' },
+          { text: 'Status', datafield: 'StatusIdentity', width: '10%' },
+          { text: 'Description', datafield: 'StatusDescription', width: '10%' },
+          { text: 'ProductNr', datafield: 'ProductIdentity', width: '10%' },
+          { text: 'Product', datafield: 'Productname', width: '20%' },
+          { text: 'Price', datafield: 'Price', width: '10%' },
+          { text: 'Discount', datafield: 'Discount', width: '10%' },
+          { text: 'Quantity', datafield: 'Quantity', width: '10%' }//,
+          //{ text: '', width: '3%', datafield: 'Edit', editable: false, cellsalign: 'center', columntype: 'button', cellsrenderer: 
+          //    function ()
+          //    {
+          //        return " <img id='deleteimg' src='Resources/images/delete.png' />";
+          //    }, buttonclick: function (row)
+          //    {
+          //  // open the popup window when the user clicks a button.
+          //  editrow = row;
+          //  $("#OrdersGrid").jqxGrid('deleterow', row);
+          //  }
+          //}
+       
         ]
     });
 }
@@ -127,8 +130,8 @@ function ConnecToDatebase(method, obj) {
         success: function (response) {
             if (response != undefined) {
                 if (response[0].ErrorStatus == 0) {
-                    if (method == 'GetUsers')
-                        GetUser(response);
+                    if (method == 'GetOrderRows')
+                        GetOrders(response);
                     else if (method == 'GetLogin') {
                         SetUser(response[0]);
                         if (UserCookie == null)

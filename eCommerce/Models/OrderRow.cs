@@ -9,6 +9,9 @@ namespace eCommerce
     {
 
         public string OrderIdentity { get; set; }
+
+        public string RowIdentity { get; set; }
+
         public string ProductIdentity { get; set; }
         
         public string Productname { get; set; }
@@ -19,7 +22,8 @@ namespace eCommerce
 
         public string Color { get; set; }
 
-        
+        public string  Comments { get; set; }
+
         public string Size { get; set; }
 
         public string ImageURL { get; set; }
@@ -29,8 +33,6 @@ namespace eCommerce
         public string CustomerIdentity { get; set; }
 
         public string StatusIdentity { get; set; }
-
-        public string RowIdentity { get; set; }
 
         public string Quantity { get; set; }
 
